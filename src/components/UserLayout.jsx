@@ -1,16 +1,16 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Navbar, Nav, Container, Badge } from 'react-bootstrap';
 import * as Icons from 'react-bootstrap-icons';
 import { useCart } from '../hooks/useCart';
 
 const UserLayout = ({ children }) => {
-  const location = useLocation();
+  // const location = useLocation();
   const { getTotalItems } = useCart();
   const cartItemCount = getTotalItems();
 
-  const isActive = (path) => {
-    return location.pathname === path;
-  };
+  // const isActive = (path) => {
+  //   return location.pathname === path;
+  // };
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#f8f9fa' }}>
@@ -26,7 +26,7 @@ const UserLayout = ({ children }) => {
           <Navbar.Collapse id="user-navbar-nav">
             <Nav className="ms-auto align-items-center">
 
-              <Nav.Link 
+              {/* <Nav.Link 
                 as={Link} 
                 to="/contact"
                 className={`text-white mx-2 ${isActive('/contact') ? 'fw-semibold border-bottom border-white border-2 pb-1' : ''}`}
@@ -34,7 +34,7 @@ const UserLayout = ({ children }) => {
               >
                 <Icons.Telephone className="me-1" />
                 Liên Hệ
-              </Nav.Link>
+              </Nav.Link> */}
 
               {/* Cart icon with badge */}
               {cartItemCount > 0 && (

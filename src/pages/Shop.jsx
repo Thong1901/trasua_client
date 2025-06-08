@@ -219,10 +219,10 @@ const Shop = () => {
                           <div className="position-relative">                            <Card.Img 
                               variant="top" 
                               src={config.getImageUrl(sanPham.hinhAnh)}
-                              alt={sanPham.ten}
-                              style={{ 
+                              alt={sanPham.ten}                              style={{ 
                                 height: '200px', 
-                                objectFit: 'cover',
+                                objectFit: 'contain',
+                                backgroundColor: '#f8f9fa',
                                 borderRadius: '0.375rem 0.375rem 0 0'
                               }}
                               onError={(e) => {
