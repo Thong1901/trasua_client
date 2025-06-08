@@ -5,6 +5,7 @@ import * as Icons from 'react-bootstrap-icons';
 import { sanPhamAPI } from '../services/api';
 import { useCart } from '../hooks/useCart';
 import ProductCustomization from '../components/ProductCustomization';
+import config from '../config/config.js';
 
 const Shop = () => {
   const navigate = useNavigate();
@@ -215,13 +216,9 @@ const Shop = () => {
                   return (                    <Col md={6} lg={4} key={sanPham._id} className="mb-4">
                       <Card className="product-card h-100">                        {/* Hình ảnh sản phẩm */}
                         {sanPham.hinhAnh && (
-                          <div className="position-relative">
-                            <Card.Img 
+                          <div className="position-relative">                            <Card.Img 
                               variant="top" 
-                              src={sanPham.hinhAnh.startsWith('/uploads/') 
-                                ? `http://localhost:5000${sanPham.hinhAnh}` 
-                                : sanPham.hinhAnh
-                              }
+                              src={config.getImageUrl(sanPham.hinhAnh)}
                               alt={sanPham.ten}
                               style={{ 
                                 height: '200px', 

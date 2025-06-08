@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Container, Row, Col, Card, Form, Button, Alert, Spinner } from 'react-bootstrap';
 import * as Icons from 'react-bootstrap-icons';
 import { sanPhamAPI } from '../services/api';
+import config from '../config/config.js';
 
 const SanPhamForm = () => {
   const navigate = useNavigate();
@@ -48,12 +49,9 @@ const SanPhamForm = () => {
           danhMuc: sanPham.danhMuc || '',
           trangThai: sanPham.trangThai || 'co_san',
           hinhAnh: sanPham.hinhAnh || ''
-        });
-          // Set image preview if exists
+        });        // Set image preview if exists
         if (sanPham.hinhAnh) {
-          const imageUrl = sanPham.hinhAnh.startsWith('/uploads/') 
-            ? `http://localhost:5000${sanPham.hinhAnh}` 
-            : sanPham.hinhAnh;
+          const imageUrl = config.getImageUrl(sanPham.hinhAnh);
           setImagePreview(imageUrl);
         }
       } catch (error) {
@@ -126,8 +124,9 @@ const SanPhamForm = () => {
       const formDataUpload = new FormData();
       formDataUpload.append('image', file);
       
-      // Make API call to upload image
-      const response = await fetch('http://localhost:5000/api/sanpham/upload-image', {
+      // Make API call to upload image using dynamic URL
+      const uploadUrl = `${config.getServerUrl()}/api/sanpham/upload-image`;
+      const response = await fetch(uploadUrl, {
         method: 'POST',
         body: formDataUpload
       });

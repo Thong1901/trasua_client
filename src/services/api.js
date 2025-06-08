@@ -1,6 +1,7 @@
 import axios from 'axios';
+import config from '../config/config.js';
 
-const API_BASE_URL = 'https://trasua-sever.onrender.com/api';
+const API_BASE_URL = config.getApiUrl();
 
 const api = axios.create({
   baseURL: API_BASE_URL,
