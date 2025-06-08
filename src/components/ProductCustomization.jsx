@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Modal, Button, Form, Row, Col } from 'react-bootstrap';
 import * as Icons from 'react-bootstrap-icons';
+import config from '../config/config';
 
 const ProductCustomization = ({ 
   show, 
@@ -63,12 +64,33 @@ const ProductCustomization = ({
         </Modal.Title>
       </Modal.Header>
       
-      <Modal.Body>
-        <Row>
+      <Modal.Body>        <Row>
           <Col md={4}>
-            <div className="product-image-placeholder bg-light rounded d-flex align-items-center justify-content-center" 
-                 style={{ height: '200px' }}>
-              <Icons.Cup size={64} className="text-muted" />
+            <div className="product-image-container position-relative">
+              {product.hinhAnh ? (                <img 
+                  src={config.getImageUrl(product.hinhAnh)}
+                  alt={product.ten}
+                  className="img-fluid rounded"
+                  style={{ 
+                    width: '100%', 
+                    height: '200px', 
+                    objectFit: 'cover' 
+                  }}
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                    e.target.parentElement.querySelector('.fallback-icon').style.display = 'flex';
+                  }}
+                />
+              ) : null}
+              <div 
+                className="fallback-icon bg-light rounded d-flex align-items-center justify-content-center" 
+                style={{ 
+                  height: '200px',
+                  display: product.hinhAnh ? 'none' : 'flex'
+                }}
+              >
+                <Icons.Cup size={64} className="text-muted" />
+              </div>
             </div>
           </Col>
           

@@ -84,15 +84,15 @@ const UserLayout = ({ children }) => {
               <div className="text-muted">
                 <div className="mb-2">
                   <Icons.GeoAlt className="me-2" />
-                  123 Đường ABC, Quận XYZ, TP.HCM
+                  Phan Dịch
                 </div>
                 <div className="mb-2">
                   <Icons.Telephone className="me-2" />
-                  1900-1234
+                  
                 </div>
                 <div className="mb-2">
                   <Icons.Envelope className="me-2" />
-                  info@trasuangon.vn
+                  https://www.facebook.com/ms.tham.chuyen.vmb.gia.re
                 </div>
               </div>
             </div>
