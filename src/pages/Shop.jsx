@@ -212,15 +212,44 @@ const Shop = () => {
                   const cartItems = cart.filter(item => item._id === sanPham._id);
                   const totalQuantityInCart = cartItems.reduce((sum, item) => sum + item.quantity, 0);
                   
-                  return (
-                    <Col md={6} lg={4} key={sanPham._id} className="mb-4">
-                      <Card className="product-card h-100">
+                  return (                    <Col md={6} lg={4} key={sanPham._id} className="mb-4">
+                      <Card className="product-card h-100">                        {/* Hình ảnh sản phẩm */}
+                        {sanPham.hinhAnh && (
+                          <div className="position-relative">
+                            <Card.Img 
+                              variant="top" 
+                              src={sanPham.hinhAnh.startsWith('/uploads/') 
+                                ? `http://localhost:5000${sanPham.hinhAnh}` 
+                                : sanPham.hinhAnh
+                              }
+                              alt={sanPham.ten}
+                              style={{ 
+                                height: '200px', 
+                                objectFit: 'cover',
+                                borderRadius: '0.375rem 0.375rem 0 0'
+                              }}
+                              onError={(e) => {
+                                e.target.style.display = 'none';
+                              }}
+                            />
+                            {totalQuantityInCart > 0 && (
+                              <Badge 
+                                bg="success" 
+                                className="position-absolute"
+                                style={{ top: '10px', right: '10px' }}
+                              >
+                                {totalQuantityInCart}
+                              </Badge>
+                            )}
+                          </div>
+                        )}
+                        
                         <Card.Body className="d-flex flex-column">
                           <div className="mb-2">
                             <Badge bg="secondary" className="mb-2">
                               {sanPham.danhMuc}
                             </Badge>
-                            {totalQuantityInCart > 0 && (
+                            {!sanPham.hinhAnh && totalQuantityInCart > 0 && (
                               <Badge bg="success" className="ms-2">
                                 Trong giỏ: {totalQuantityInCart}
                               </Badge>

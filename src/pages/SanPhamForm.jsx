@@ -13,15 +13,19 @@ const SanPhamForm = () => {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-
   const [formData, setFormData] = useState({
     ten: '',
     moTa: '',
     gia: '',
     soLuong: '',
     danhMuc: '',
-    trangThai: 'co_san'
+    trangThai: 'co_san',
+    hinhAnh: ''
   });
+
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState('');
+  const [uploadingImage, setUploadingImage] = useState(false);
 
   const danhMucOptions = [
     'Trà Sữa Truyền Thống',
@@ -36,15 +40,22 @@ const SanPhamForm = () => {
       try {
         setLoading(true);
         const response = await sanPhamAPI.getById(id);
-        const sanPham = response.data.data;
-        setFormData({
+        const sanPham = response.data.data;        setFormData({
           ten: sanPham.ten || '',
           moTa: sanPham.moTa || '',
           gia: sanPham.gia || '',
           soLuong: sanPham.soLuong || '',
           danhMuc: sanPham.danhMuc || '',
-          trangThai: sanPham.trangThai || 'co_san'
+          trangThai: sanPham.trangThai || 'co_san',
+          hinhAnh: sanPham.hinhAnh || ''
         });
+          // Set image preview if exists
+        if (sanPham.hinhAnh) {
+          const imageUrl = sanPham.hinhAnh.startsWith('/uploads/') 
+            ? `http://localhost:5000${sanPham.hinhAnh}` 
+            : sanPham.hinhAnh;
+          setImagePreview(imageUrl);
+        }
       } catch (error) {
         console.error('Error fetching product:', error);
         setError('Có lỗi khi tải thông tin sản phẩm');
@@ -66,6 +77,80 @@ const SanPhamForm = () => {
     }));
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        setError('Vui lòng chọn file hình ảnh hợp lệ');
+        return;
+      }
+      
+      // Validate file size (5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        setError('Kích thước file không được vượt quá 5MB');
+        return;
+      }
+      
+      setImageFile(file);
+      
+      // Create preview
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setImagePreview(e.target.result);
+      };
+      reader.readAsDataURL(file);
+      
+      setError('');
+    }
+  };
+
+  const removeImage = () => {
+    setImageFile(null);
+    setImagePreview('');
+    setFormData(prev => ({
+      ...prev,
+      hinhAnh: ''
+    }));
+    
+    // Clear file input
+    const fileInput = document.getElementById('hinhAnh');
+    if (fileInput) {
+      fileInput.value = '';
+    }
+  };  const uploadImageToAssets = async (file) => {
+    try {
+      setUploadingImage(true);
+      
+      // Create FormData for file upload
+      const formDataUpload = new FormData();
+      formDataUpload.append('image', file);
+      
+      // Make API call to upload image
+      const response = await fetch('http://localhost:5000/api/sanpham/upload-image', {
+        method: 'POST',
+        body: formDataUpload
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to upload image');
+      }
+      
+      const result = await response.json();
+      
+      if (!result.success) {
+        throw new Error(result.message || 'Upload failed');
+      }
+      
+      // Return the image path from server
+      return result.data.imagePath;
+    } catch (error) {
+      throw new Error('Lỗi khi upload hình ảnh: ' + error.message);
+    } finally {
+      setUploadingImage(false);
+    }
+  };
+
   const validateForm = () => {
     if (!formData.ten.trim()) {
       setError('Tên sản phẩm không được để trống');
@@ -85,7 +170,6 @@ const SanPhamForm = () => {
     }
     return true;
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
@@ -98,10 +182,23 @@ const SanPhamForm = () => {
     try {
       setSubmitting(true);
       
+      let imagePath = formData.hinhAnh;
+      
+      // If there's a new image file, upload it
+      if (imageFile) {
+        try {
+          imagePath = await uploadImageToAssets(imageFile);
+        } catch (uploadError) {
+          setError(uploadError.message);
+          return;
+        }
+      }
+      
       const submitData = {
         ...formData,
         gia: parseFloat(formData.gia),
-        soLuong: parseInt(formData.soLuong)
+        soLuong: parseInt(formData.soLuong),
+        hinhAnh: imagePath
       };
 
       if (isEdit) {
@@ -254,7 +351,57 @@ const SanPhamForm = () => {
                       </Form.Select>
                     </Form.Group>
                   </Col>
-                </Row>
+                </Row>                <Form.Group className="mb-3">
+                  <Form.Label>Hình Ảnh</Form.Label>
+                  <Form.Control
+                    type="file"
+                    id="hinhAnh"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                    className="mb-2"
+                  />
+                  <Form.Text className="text-muted">
+                    Chọn file hình ảnh (JPG, PNG, GIF). Kích thước tối đa: 5MB
+                  </Form.Text>
+                  
+                  {imagePreview && (
+                    <div className="mt-3">
+                      <div className="d-flex align-items-start gap-2">
+                        <div 
+                          className="border rounded p-2 bg-light"
+                          style={{ maxWidth: '200px' }}
+                        >
+                          <img 
+                            src={imagePreview} 
+                            alt="Preview" 
+                            style={{ 
+                              width: '100%', 
+                              height: 'auto',
+                              maxHeight: '150px',
+                              objectFit: 'cover'
+                            }} 
+                          />
+                        </div>
+                        <Button
+                          type="button"
+                          variant="outline-danger"
+                          size="sm"
+                          onClick={removeImage}
+                          className="d-flex align-items-center"
+                        >
+                          <Icons.Trash className="me-1" />
+                          Xóa
+                        </Button>
+                      </div>
+                      {uploadingImage && (
+                        <div className="mt-2 text-info">
+                          <Spinner animation="border" size="sm" className="me-2" />
+                          Đang upload hình ảnh...
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </Form.Group>
 
                 <div className="d-flex gap-3 justify-content-end">
                   <Button
