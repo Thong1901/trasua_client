@@ -82,15 +82,6 @@ const ProductCustomization = ({
                   }}
                 />
               ) : null}
-              <div 
-                className="fallback-icon bg-light rounded d-flex align-items-center justify-content-center" 
-                style={{ 
-                  height: '200px',
-                  display: product.hinhAnh ? 'none' : 'flex'
-                }}
-              >
-                <Icons.Cup size={64} className="text-muted" />
-              </div>
             </div>
           </Col>
           

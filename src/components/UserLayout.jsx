@@ -68,27 +68,26 @@ const UserLayout = ({ children }) => {
       {/* Footer */}
       <footer className="bg-dark text-white py-4 mt-5">
         <Container>
-          <div className="row">
-            <div className="col-md-4 mb-3">
+          <div className="row">            <div className="col-md-4 mb-3">
               <h5 className="text-primary">
                 <span className="me-2">🧋</span>
                 Trà Sữa Ngon
               </h5>
-              <p className="text-muted">
+              <p className="text-light">
                 Thương hiệu trà sữa hàng đầu với hương vị tuyệt vời và chất lượng đảm bảo.
               </p>
             </div>
             
             <div className="col-md-4 mb-3">
-              <h6>Liên Hệ</h6>
-              <div className="text-muted">
+              <h6 className="text-white">Liên Hệ</h6>
+              <div className="text-light">
                 <div className="mb-2">
                   <Icons.GeoAlt className="me-2" />
-                  Phan Dịch
+                  Phan Dịch, 48 Cồn Rang
                 </div>
                 <div className="mb-2">
                   <Icons.Telephone className="me-2" />
-                  
+                  0395344556
                 </div>
                 <div className="mb-2">
                   <Icons.Envelope className="me-2" />
@@ -98,22 +97,39 @@ const UserLayout = ({ children }) => {
             </div>
             
             <div className="col-md-4 mb-3">
-              <h6>Giờ Mở Cửa</h6>
-              <div className="text-muted">
+              <h6 className="text-white">Giờ Mở Cửa</h6>
+              <div className="text-light">
                 <div className="mb-1">Thứ 2 - Thứ 6: 7:00 - 22:00</div>
                 <div className="mb-1">Thứ 7 - Chủ nhật: 8:00 - 23:00</div>
               </div>
               
               <div className="mt-3">
-                <h6>Theo Dõi Chúng Tôi</h6>
-                <div className="d-flex gap-2">
-                  <a href="#" className="text-white">
+                <h6 className="text-white">Theo Dõi Chúng Tôi</h6>                <div className="d-flex gap-2">
+                  <a 
+                    href="#" 
+                    className="text-white text-decoration-none"
+                    style={{ transition: 'opacity 0.3s' }}
+                    onMouseEnter={(e) => e.target.style.opacity = '0.7'}
+                    onMouseLeave={(e) => e.target.style.opacity = '1'}
+                  >
                     <Icons.Facebook size={20} />
                   </a>
-                  <a href="#" className="text-white">
+                  <a 
+                    href="#" 
+                    className="text-white text-decoration-none"
+                    style={{ transition: 'opacity 0.3s' }}
+                    onMouseEnter={(e) => e.target.style.opacity = '0.7'}
+                    onMouseLeave={(e) => e.target.style.opacity = '1'}
+                  >
                     <Icons.Instagram size={20} />
                   </a>
-                  <a href="#" className="text-white">
+                  <a 
+                    href="#" 
+                    className="text-white text-decoration-none"
+                    style={{ transition: 'opacity 0.3s' }}
+                    onMouseEnter={(e) => e.target.style.opacity = '0.7'}
+                    onMouseLeave={(e) => e.target.style.opacity = '1'}
+                  >
                     <Icons.Tiktok size={20} />
                   </a>
                 </div>
@@ -122,8 +138,7 @@ const UserLayout = ({ children }) => {
           </div>
           
           <hr className="my-3" />
-          
-          <div className="text-center text-muted">
+            <div className="text-center text-light">
             <small>© 2025 Trà Sữa Ngon. Tất cả quyền được bảo lưu.</small>
           </div>
         </Container>
