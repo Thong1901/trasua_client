@@ -82,15 +82,7 @@ const ProductCustomization = ({
                     e.target.parentElement.querySelector('.fallback-icon').style.display = 'flex';
                   }}
                 />              ) : null}
-              <div 
-                className="fallback-icon bg-light rounded d-flex align-items-center justify-content-center w-100" 
-                style={{ 
-                  minHeight: '200px',
-                  display: product.hinhAnh ? 'none' : 'flex'
-                }}
-              >
-                <Icons.Cup size={64} className="text-muted" />
-              </div>
+
             </div>
           </Col>
           

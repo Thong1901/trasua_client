@@ -27,12 +27,11 @@ const SanPhamDetail = () => {
 
     fetchSanPham();
   }, [id]);
-
   const handleDelete = async () => {
     if (window.confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')) {
       try {
         await sanPhamAPI.delete(id);
-        navigate('/sanpham');
+        navigate('/admin/sanpham');
       } catch (error) {
         console.error('Error deleting product:', error);
         setError('Có lỗi khi xóa sản phẩm');
@@ -41,7 +40,7 @@ const SanPhamDetail = () => {
   };
 
   const handleBack = () => {
-    navigate('/sanpham');
+    navigate('/admin/sanpham');
   };
 
   const formatPrice = (price) => {
@@ -106,7 +105,7 @@ const SanPhamDetail = () => {
         </div>
         <div className="d-flex gap-2">          <Button
             as={Link}
-            to={`/sanpham/${id}/edit`}
+            to={`/admin/sanpham/${id}/edit`}
             variant="warning"
             className="d-flex align-items-center"
           >

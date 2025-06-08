@@ -60,7 +60,7 @@ const SanPham = () => {
         <div>
           <h1 className="display-5">Quản Lý Sản Phẩm</h1>
           <p className="text-muted">Danh sách tất cả sản phẩm trà sữa</p>
-        </div>        <Button as={Link} to="/sanpham/create" variant="primary" className="d-flex align-items-center">
+        </div>        <Button as={Link} to="/admin/sanpham/create" variant="primary" className="d-flex align-items-center">
           <Icons.Plus className="me-2" />
           Thêm Sản Phẩm
         </Button>
@@ -76,8 +76,7 @@ const SanPham = () => {
         <Card.Body>
           {sanPhams.length === 0 ? (
             <div className="text-center py-5">
-              <p className="text-muted">Chưa có sản phẩm nào</p>
-              <Button as={Link} to="/sanpham/create" variant="primary">
+              <p className="text-muted">Chưa có sản phẩm nào</p>              <Button as={Link} to="/admin/sanpham/create" variant="primary">
                 Thêm Sản Phẩm Đầu Tiên
               </Button>
             </div>
@@ -128,7 +127,7 @@ const SanPham = () => {
                     <td>
                       <div className="d-flex justify-content-center gap-2">                        <Button
                           as={Link}
-                          to={`/sanpham/${sanPham._id}`}
+                          to={`/admin/sanpham/${sanPham._id}`}
                           size="sm"
                           variant="outline-info"
                           title="Xem chi tiết"
@@ -137,7 +136,7 @@ const SanPham = () => {
                         </Button>
                         <Button
                           as={Link}
-                          to={`/sanpham/${sanPham._id}/edit`}
+                          to={`/admin/sanpham/${sanPham._id}/edit`}
                           size="sm"
                           variant="outline-warning"
                           title="Chỉnh sửa"

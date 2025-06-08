@@ -209,7 +209,7 @@ const SanPhamForm = () => {
       }
 
       setTimeout(() => {
-        navigate('/sanpham');
+        navigate('/admin/sanpham');
       }, 1500);
     } catch (error) {
       console.error('Error saving product:', error);
@@ -220,7 +220,7 @@ const SanPhamForm = () => {
   };
 
   const handleBack = () => {
-    navigate('/sanpham');
+    navigate('/admin/sanpham');
   };
 
   if (loading) {
