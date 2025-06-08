@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/Layout';
 import UserLayout from './components/UserLayout';
 import CartProvider from './contexts/CartProvider';
@@ -16,37 +16,47 @@ function App() {
     <CartProvider>
       <Router>
         <Routes>
+          {/* Redirect /admin to /admin/dashboard */}
+          <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
+          
           {/* Admin Routes với Layout quản trị */}
-          <Route path="/admin" element={
+          <Route path="/admin/dashboard" element={
             <Layout>
               <Dashboard />
             </Layout>
           } />
-          <Route path="/sanpham" element={
+          <Route path="/admin/sanpham" element={
             <Layout>
               <SanPham />
             </Layout>
           } />
-          <Route path="/sanpham/create" element={
+          <Route path="/admin/sanpham/create" element={
             <Layout>
               <SanPhamForm />
             </Layout>
           } />
-          <Route path="/sanpham/:id" element={
+          <Route path="/admin/sanpham/:id" element={
             <Layout>
               <SanPhamDetail />
             </Layout>
           } />
-          <Route path="/sanpham/:id/edit" element={
+          <Route path="/admin/sanpham/:id/edit" element={
             <Layout>
               <SanPhamForm />
             </Layout>
           } />
-          <Route path="/donhang" element={
+          <Route path="/admin/donhang" element={
             <Layout>
               <DonHang />
             </Layout>
           } />
+          
+          {/* Legacy admin routes - redirect to new structure */}
+          <Route path="/sanpham" element={<Navigate to="/admin/sanpham" replace />} />
+          <Route path="/sanpham/create" element={<Navigate to="/admin/sanpham/create" replace />} />
+          <Route path="/sanpham/:id" element={<Navigate to="/admin/sanpham/:id" replace />} />
+          <Route path="/sanpham/:id/edit" element={<Navigate to="/admin/sanpham/:id/edit" replace />} />
+          <Route path="/donhang" element={<Navigate to="/admin/donhang" replace />} />
           <Route path="/donhang/create" element={
             <Layout>
               <div className="text-center p-5">Trang Tạo Đơn Hàng - Đang phát triển</div>
@@ -79,6 +89,9 @@ function App() {
               <OrderSuccess />
             </UserLayout>
           } />
+          
+          {/* Catch-all route - redirect to home */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Router>
     </CartProvider>

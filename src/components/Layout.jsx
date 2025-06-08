@@ -18,35 +18,35 @@ const Layout = ({ children }) => {
             <span className="text-tea fw-bold fs-4">Tee's House</span>
           </Navbar.Brand>
           
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">            <Nav className="ms-auto">
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="ms-auto">
               <Nav.Link 
                 as={Link} 
-                to="/" 
-                className={isActive('/') ? 'text-tea fw-semibold' : 'text-muted'}
+                to="/admin/dashboard" 
+                className={isActive('/admin/dashboard') ? 'text-tea fw-semibold' : 'text-muted'}
               >
                 Dashboard
               </Nav.Link>
               <Nav.Link 
                 as={Link} 
-                to="/sanpham"
-                className={isActive('/sanpham') ? 'text-tea fw-semibold' : 'text-muted'}
+                to="/admin/sanpham"
+                className={location.pathname.includes('/admin/sanpham') ? 'text-tea fw-semibold' : 'text-muted'}
               >
                 Sản Phẩm
               </Nav.Link>
               <Nav.Link 
                 as={Link} 
-                to="/donhang"
-                className={isActive('/donhang') ? 'text-tea fw-semibold' : 'text-muted'}
+                to="/admin/donhang"
+                className={location.pathname.includes('/admin/donhang') ? 'text-tea fw-semibold' : 'text-muted'}
               >
                 Đơn Hàng
               </Nav.Link>
               <Nav.Link 
                 as={Link} 
                 to="/"
-                className={isActive('/') ? 'text-tea fw-semibold' : 'text-muted'}
+                className="text-muted"
               >
-                🛒 Mua Hàng
+                🛒 Trang Khách Hàng
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
