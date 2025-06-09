@@ -20,8 +20,8 @@ const Shop = () => {
   const { cart, addToCart, removeFromCart, updateQuantity, getTotalPrice, getTotalItems } = useCart();
 
   const danhMucOptions = [
-    'Trà Sữa ',
-    'Trà '
+    'Trà Sữa',
+    'Trà'
   ];
 
   useEffect(() => {
