@@ -20,12 +20,8 @@ const Shop = () => {
   const { cart, addToCart, removeFromCart, updateQuantity, getTotalPrice, getTotalItems } = useCart();
 
   const danhMucOptions = [
-    'Trà Sữa Truyền Thống',
-    'Trà Sữa Trái Cây',
-    'Trà Sữa Đặc Biệt',
-    'Trà Nguyên Chất',
-    'Nước Ép Trái Cây',
-    'Topping'
+    'Trà Sữa ',
+    'Trà '
   ];
 
   useEffect(() => {
