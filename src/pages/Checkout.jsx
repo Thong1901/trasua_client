@@ -63,7 +63,7 @@ const Checkout = () => {
       return false;
     }
     if (!customerInfo.dia_chi.trim()) {
-      setError('Vui lòng nhập địa chỉ');
+      setError('Vui lòng nhập địa chỉ (chỉ nhận giao hàng trong khu vực phú đa');
       return false;
     }
     
