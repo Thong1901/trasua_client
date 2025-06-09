@@ -87,7 +87,7 @@ const UserLayout = ({ children }) => {
                 </div>
                 <div className="mb-2">
                   <Icons.Telephone className="me-2" />
-                  0395344556
+                  0374463368
                 </div>
                 <div className="mb-2">
                   <Icons.Envelope className="me-2" />

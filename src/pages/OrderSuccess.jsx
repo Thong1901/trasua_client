@@ -171,11 +171,11 @@ const OrderSuccess = () => {
               <div className="row">
                 <div className="col-md-6 mb-2">
                   <Icons.Telephone className="text-primary me-2" />
-                  <strong>Hotline:</strong> 1900-1234
+                  <strong>Hotline:</strong> 0374463368
                 </div>
                 <div className="col-md-6 mb-2">
                   <Icons.Envelope className="text-primary me-2" />
-                  <strong>Email:</strong> support@trasuangon.vn
+                  <strong>Facebook:</strong> <a href="https://www.facebook.com/ms.tham.chuyen.vmb.gia.re">Thắm Mai</a>
                 </div>
               </div>
             </Card.Body>
