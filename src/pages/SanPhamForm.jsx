@@ -31,7 +31,6 @@ const SanPhamForm = () => {
   const danhMucOptions = [
     'Trà Sữa',
     'Trà'
-    
   ];
   useEffect(() => {
     const fetchSanPham = async () => {
