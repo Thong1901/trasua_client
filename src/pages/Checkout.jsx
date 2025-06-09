@@ -63,7 +63,7 @@ const Checkout = () => {
       return false;
     }
     if (!customerInfo.dia_chi.trim()) {
-      setError('Vui lòng nhập địa chỉ (chỉ nhận giao hàng trong khu vực phú đa');
+      setError('Vui lòng nhập địa chỉ');
       return false;
     }
     
@@ -209,7 +209,7 @@ const Checkout = () => {
                 </Row>
                 
                 <Form.Group className="mb-3">
-                  <Form.Label>Địa chỉ giao hàng *</Form.Label>
+                  <Form.Label>Địa chỉ giao hàng *(chỉ nhận giao hàng trong địa bàn phú đa)</Form.Label>
                   <Form.Control
                     type="text"
                     name="dia_chi"
