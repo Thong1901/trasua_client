@@ -21,10 +21,14 @@ export const config = {
   getServerUrl: () => {
     return config.isDevelopment ? config.LOCAL_SERVER_URL : config.SERVER_BASE_URL;
   },
-  
-  // Get full image URL
+    // Get full image URL
   getImageUrl: (imagePath) => {
     if (!imagePath) return '';
+    
+    // If it's base64 data, return as is
+    if (imagePath.startsWith('data:image/')) {
+      return imagePath;
+    }
     
     // If already a full URL, return as is
     if (imagePath.startsWith('http')) {

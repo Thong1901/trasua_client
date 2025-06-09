@@ -141,8 +141,11 @@ const SanPhamForm = () => {
         throw new Error(result.message || 'Upload failed');
       }
       
-      // Return the image path from server
-      return result.data.imagePath;
+      // Return both image path and base64 backup
+      return {
+        imagePath: result.data.imagePath,
+        base64: result.data.base64
+      };
     } catch (error) {
       throw new Error('Lỗi khi upload hình ảnh: ' + error.message);
     } finally {
@@ -176,17 +179,18 @@ const SanPhamForm = () => {
 
     if (!validateForm()) {
       return;
-    }
-
-    try {
+    }    try {
       setSubmitting(true);
       
       let imagePath = formData.hinhAnh;
+      let imageBase64 = '';
       
       // If there's a new image file, upload it
       if (imageFile) {
         try {
-          imagePath = await uploadImageToAssets(imageFile);
+          const uploadResult = await uploadImageToAssets(imageFile);
+          imagePath = uploadResult.imagePath;
+          imageBase64 = uploadResult.base64;
         } catch (uploadError) {
           setError(uploadError.message);
           return;
@@ -197,7 +201,8 @@ const SanPhamForm = () => {
         ...formData,
         gia: parseFloat(formData.gia),
         soLuong: parseInt(formData.soLuong),
-        hinhAnh: imagePath
+        hinhAnh: imagePath,
+        hinhAnhBase64: imageBase64
       };
 
       if (isEdit) {

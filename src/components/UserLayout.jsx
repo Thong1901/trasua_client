@@ -71,7 +71,7 @@ const UserLayout = ({ children }) => {
           <div className="row">            <div className="col-md-4 mb-3">
               <h5 className="text-primary">
                 <span className="me-2">🧋</span>
-                Trà Sữa Ngon
+                Trà Ngon
               </h5>
               <p className="text-light">
                 Thương hiệu trà sữa hàng đầu với hương vị tuyệt vời và chất lượng đảm bảo.
@@ -83,7 +83,7 @@ const UserLayout = ({ children }) => {
               <div className="text-light">
                 <div className="mb-2">
                   <Icons.GeoAlt className="me-2" />
-                  Phan Dịch, 48 Cồn Rang
+                  Phan Địch, 48 Cồn Rang
                 </div>
                 <div className="mb-2">
                   <Icons.Telephone className="me-2" />
@@ -91,7 +91,9 @@ const UserLayout = ({ children }) => {
                 </div>
                 <div className="mb-2">
                   <Icons.Envelope className="me-2" />
-                  https://www.facebook.com/ms.tham.chuyen.vmb.gia.re
+                  <a href="https://www.facebook.com/ms.tham.chuyen.vmb.gia.re" target="_blank" rel="noopener noreferrer">
+                    Thắm Mai
+                  </a>
                 </div>
               </div>
             </div>
@@ -139,7 +141,7 @@ const UserLayout = ({ children }) => {
           
           <hr className="my-3" />
             <div className="text-center text-light">
-            <small>© 2025 Trà Sữa Ngon. Tất cả quyền được bảo lưu.</small>
+            <small>© 2025 Trà Ngon. Tất cả quyền được bảo lưu.</small>
           </div>
         </Container>
       </footer>

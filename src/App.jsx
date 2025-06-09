@@ -54,8 +54,8 @@ function App() {
           {/* Legacy admin routes - redirect to new structure */}
           <Route path="/sanpham" element={<Navigate to="/admin/sanpham" replace />} />
           <Route path="/sanpham/create" element={<Navigate to="/admin/sanpham/create" replace />} />
-          <Route path="/sanpham/:id" element={<Navigate to="/admin/sanpham/:id" replace />} />
-          <Route path="/sanpham/:id/edit" element={<Navigate to="/admin/sanpham/:id/edit" replace />} />
+          <Route path="/sanpham/:id" element={<Navigate to={`/admin/sanpham/${location.pathname.split('/')[2]}`} replace />} />
+          <Route path="/sanpham/:id/edit" element={<Navigate to={`/admin/sanpham/${location.pathname.split('/')[2]}/edit`} replace />} />
           <Route path="/donhang" element={<Navigate to="/admin/donhang" replace />} />
           <Route path="/donhang/create" element={
             <Layout>
