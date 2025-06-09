@@ -58,6 +58,10 @@ const Checkout = () => {
   const getTotalItems = () => {
     return cart.reduce((total, item) => total + item.quantity, 0);
   };
+  // Kiểm tra xem sản phẩm có phải là trà sữa không (theo tên)
+  const isTraSua = (productName) => {
+    return productName && productName.toLowerCase().includes('trà sữa');
+  };
 
   // Xử lý chọn topping
   const handleToppingChange = (itemIndex, toppingId, checked) => {
@@ -157,9 +161,8 @@ const Checkout = () => {
       // Chuẩn bị dữ liệu đơn hàng với chi tiết tùy chỉnh và topping
       const san_phams = cart.map((item, index) => {
         let itemNote = item.ghi_chu || '';
-        
-        // Thêm ghi chú topping nếu sản phẩm là Trà Sữa
-        if (item.danh_muc === 'Trà Sữa') {
+          // Thêm ghi chú topping nếu sản phẩm là Trà Sữa
+        if (isTraSua(item.ten)) {
           const toppingsNote = getToppingsNote(index);
           if (toppingsNote) {
             itemNote = itemNote ? `${itemNote}. ${toppingsNote}` : toppingsNote;
@@ -173,7 +176,7 @@ const Checkout = () => {
           chi_tiet_san_pham: {
             ten_san_pham: item.ten,
             so_luong: item.quantity,
-            gia: item.gia + (item.danh_muc === 'Trà Sữa' ? getToppingsPrice(index) : 0),
+            gia: item.gia + (isTraSua(item.ten) ? getToppingsPrice(index) : 0),
             muc_ngot: item.muc_ngot || 'vua',
             muc_da: item.muc_da || 'vua'
           }
@@ -344,10 +347,8 @@ const Checkout = () => {
                 </div>
               </Form>
             </Card.Body>
-          </Card>
-
-          {/* Card Tùy Chỉnh Topping cho Trà Sữa */}
-          {cart.some(item => item.danh_muc === 'Trà Sữa') && (
+          </Card>          {/* Card Tùy Chỉnh Topping cho Trà Sữa */}
+          {cart.some(item => isTraSua(item.ten)) && (
             <Card className="mb-4">
               <Card.Header>
                 <h5 className="mb-0">
@@ -358,7 +359,7 @@ const Checkout = () => {
               </Card.Header>
               <Card.Body>
                 {cart.map((item, index) => {
-                  if (item.danh_muc !== 'Trà Sữa') return null;
+                  if (!isTraSua(item.ten)) return null;
                   
                   return (
                     <div key={index} className="mb-4 p-3 border rounded">
@@ -430,9 +431,8 @@ const Checkout = () => {
                     <th className="text-end">Thành tiền</th>
                   </tr>
                 </thead>
-                <tbody>
-                  {cart.map((item, index) => {
-                    const itemToppingsPrice = item.danh_muc === 'Trà Sữa' ? getToppingsPrice(index) : 0;
+                <tbody>                  {cart.map((item, index) => {
+                    const itemToppingsPrice = isTraSua(item.ten) ? getToppingsPrice(index) : 0;
                     const itemTotalPrice = (item.gia + itemToppingsPrice) * item.quantity;
                     
                     return (
@@ -444,7 +444,7 @@ const Checkout = () => {
                           <small className="text-muted">
                             {formatPrice(item.gia + itemToppingsPrice)}/sp
                           </small>
-                          {item.danh_muc === 'Trà Sữa' && selectedToppings[`item_${index}`]?.length > 0 && (
+                          {isTraSua(item.ten) && selectedToppings[`item_${index}`]?.length > 0 && (
                             <div>
                               <small className="text-success">
                                 +{selectedToppings[`item_${index}`].length} topping
